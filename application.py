@@ -31,7 +31,8 @@ class Login(Resource):
         data = request.args.to_dict()
         if data.get('password') and data.get('email') and data.get('key'):
             if data['key'] == 'e75774559e4c4532a313769f7294d70b':
-                return data
+                user = db.findUser(data['email'].strip())
+                return {'message':user}
             return {"message":"UnAuthorized"}
         return {"message":"Not valid inputs"}
 
@@ -40,16 +41,17 @@ class Login(Resource):
 
 class Show(Resource):
     def get(self):
-        k = db.fetch()
-        z = {}
-        for ind,a in  enumerate(k):
-            z[ind] = a
-        return z
-
+        if request.args.get('key') == 'e75774559e4c4532a313769f':
+            k = db.fetch()
+            z = {}
+            for ind,a in  enumerate(k):
+                z[ind] = a
+            return z
+        return {"message":"error"}
 
 api.add_resource(Login, "/auth/login")
 api.add_resource(Register, "/auth/register")
-api.add_resource(Show,"/")
+api.add_resource(Show,"/feed")
 
 
 if __name__ == '__main__':
