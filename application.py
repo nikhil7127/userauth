@@ -46,7 +46,7 @@ class Login(Resource):
 
 class Show(Resource):
     def get(self):
-        if request.args.get('key') == 'e75774559e4c4532a313769f':
+        if request.args.get('key').strip() == 'e75774559e4c4532a313769f7294d70b':
             k = db.fetch()
             z = {}
             for ind,a in  enumerate(k):
