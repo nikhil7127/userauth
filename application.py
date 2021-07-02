@@ -18,7 +18,7 @@ class Register(Resource):
         data = request.args.to_dict()
         if data.get('username') and data.get('password') and data.get('email') and data.get('key'):
             if data['key'] == 'e75774559e4c4532a313769f7294d70b':
-                k = db.add((data['username'],data['email'],sha256(data['password'].encode()).hexdigest()))
+                k = db.add((data['username'].strip(),data['email'].strip(),sha256(data['password'].strip().encode()).hexdigest()))
                 return {"message":str(k)}
             return {"message":"UnAuthorized"}
         return {"message":"Not valid inputs"}
@@ -31,8 +31,10 @@ class Login(Resource):
         data = request.args.to_dict()
         if data.get('password') and data.get('email') and data.get('key'):
             if data['key'] == 'e75774559e4c4532a313769f7294d70b':
-                user = db.findUser(data['email'].strip())
-                return {'message':user}
+                user = db.findUser(data['email'].strip())[0]
+                if user == sha256(data['password'].strip().encode().hexdigest()):
+                    return {'status': 'done'}
+                return {'message': 'incorrect credentials'}
             return {"message":"UnAuthorized"}
         return {"message":"Not valid inputs"}
 
