@@ -6,7 +6,8 @@ from login import Login
 from register import Register
 from delete import Delete
 from feed import Feed
-from db import db  
+from db import db
+from data import Data
 
 application = Flask(__name__)
 api = Api(application)
@@ -16,6 +17,7 @@ api.add_resource(Register, "/auth/register")
 api.add_resource(Delete,"/auth/delete")
 api.add_resource(Update,"/auth/update")
 api.add_resource(Feed,"/feed")
+api.add_resource(Data,"/")
 
 if __name__ == '__main__':
     application.run(debug=True, host="0.0.0.0", port=int(os.environ.get("POST", 8080)))
