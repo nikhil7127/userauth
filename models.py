@@ -4,7 +4,7 @@ class Database:
 
   insertCMD = 'insert into users(username,email,password) values(%s,%s,%s)'
   deleteCMD = 'delete from users where email = %s'
-  updateCMD = 'update users set username = %s where username = %s'
+  updateCMD = 'update users set username = %s where email = %s'
 
   def __init__(self):
     try:
@@ -38,9 +38,9 @@ class Database:
     except Exception as e:
       return {'error':str(e)}
   
-  def update(self,From,To):
+  def update(self,email,username):
     try:
-      self.cursor.execute(updateCMD,(To,From))
+      self.cursor.execute(self.updateCMD,(username,email))
       self.cursor.connection.commit()
       return 1
     except Exception as e:
