@@ -8,7 +8,7 @@ class Database:
 
   def __init__(self):
     try:
-      self.db = pymysql.connect(host='database.cueluwhjjs5i.us-west-1.rds.amazonaws.com',user='admin',password='nikhilD8',charset='utf8mb4')
+      self.db = pymysql.connect(host='database.cueluwhjjs5i.us-west-1.rds.amazonaws.com',user='admin',password='password',charset='utf8mb4')
       self.cursor = self.db.cursor()
       self.cursor.execute('use nikhil')
     except:
